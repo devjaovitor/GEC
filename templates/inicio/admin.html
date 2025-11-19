@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Configurar Administrador | StockCore</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      font-family: "Inter", sans-serif;
+      color: #1f2937;
+    }
+
+    .setup-container {
+      width: 420px;
+      padding: 40px;
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.09);
+      text-align: center;
+    }
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #15803d;
+    }
+
+    .form-control {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+    }
+
+    .form-control:focus {
+      border-color: #15803d;
+      box-shadow: 0 0 0 0.2rem rgba(21,128,61,0.25);
+    }
+
+    .btn-save {
+      background-color: #15803d;
+      color: white;
+      font-weight: 600;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn-save:hover {
+      background-color: #166534;
+    }
+
+    .flash-message {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="setup-container">
+
+    <div class="title">Configurar Administrador</div>
+
+    {% with msgs = get_flashed_messages() %}
+      {% if msgs %}
+        {% for msg in msgs %}
+        <div class="flash-message">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+
+      <div class="mb-3 text-start">
+        <label class="form-label fw-bold">Nome do Estabelecimento</label>
+        <input type="text" name="empresa" class="form-control" required placeholder="Ex: Mercado Central">
+      </div>
+
+      <div class="mb-3 text-start">
+        <label class="form-label fw-bold">Nome Completo</label>
+        <input type="text" name="nome" class="form-control" required placeholder="Ex: João Silva">
+      </div>
+
+      <div class="mb-3 text-start">
+        <label class="form-label fw-bold">Usuário</label>
+        <input type="text" name="usuario" class="form-control" required placeholder="Ex: admin">
+      </div>
+
+      <div class="mb-3 text-start">
+        <label class="form-label fw-bold">Senha</label>
+        <input type="password" name="senha" class="form-control" required placeholder="Crie uma senha segura">
+      </div>
+
+      <button type="submit" class="btn-save">Criar Administrador</button>
+
+    </form>
+
+  </div>
+
+</body>
+</html>

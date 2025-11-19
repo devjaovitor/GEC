@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Usuário | StockCore</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f9fafb;
+      font-family: "Inter", sans-serif;
+    }
+
+    .sidebar {
+      height: 100vh;
+      width: 240px;
+      background-color: #14532d;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h5 {
+      text-align: center;
+      background-color: #15803d;
+      border-radius: 6px;
+      padding: 8px 0;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 5px;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #166534;
+      color: #fff;
+    }
+
+    .content {
+      margin-left: 260px;
+      padding: 40px;
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-box {
+      width: 100%;
+      max-width: 550px;
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    }
+
+    .form-label {
+      font-weight: 600;
+    }
+
+    .btn-success {
+      background-color: #15803d;
+      border: none;
+    }
+
+    .btn-success:hover {
+      background-color: #166534;
+    }
+
+    .back-link {
+      color: #15803d;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <div>
+      <h5>G E C</h5>
+      <a href="{{ url_for('home') }}">🏠 Dashboard</a>
+      <a href="{{ url_for('gerenciamento') }}">📋 Gerenciamento</a>
+      <a href="{{ url_for('relatorios') }}">📊 Relatórios</a>
+      <a href="{{ url_for('movimentacao') }}">🔄 Movimentações</a>
+      <a href="{{ url_for('listar_forn') }}">🚚 Fornecedores</a>
+      <a href="{{ url_for('listar_usuarios') }}" class="active">👤 Usuários</a>
+    </div>
+
+    <div>
+      <a href="{{ url_for('login') }}" class="logout" style="color:#f87171">⬅ Sair</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="card-box">
+      <h3 class="fw-bold text-success mb-4 text-center">Editar Usuário</h3>
+
+      <form method="POST" action="{{ url_for('editar_usuario', id=usuario[0]) }}">
+
+        <div class="mb-3">
+          <label class="form-label">Nome Completo</label>
+          <input type="text" name="nome" class="form-control" required value="{{ usuario[1] }}">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Usuário</label>
+          <input type="text" name="usuario" class="form-control" required value="{{ usuario[2] }}">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Perfil</label>
+          <select name="perfil" class="form-select" required>
+            <option value="admin" {% if usuario[4] == "admin" %}selected{% endif %}>Administrador</option>
+            <option value="operador" {% if usuario[4] == "operador" %}selected{% endif %}>Operador</option>
+          </select>
+        </div>
+
+        <button class="btn btn-success w-100 mt-3">Salvar Alterações</button>
+      </form>
+
+      <div class="text-center mt-3">
+        <a href="{{ url_for('listar_usuarios') }}" class="back-link">Voltar</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Movimentações - StockCore</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f9fafb;
+      font-family: "Inter", sans-serif;
+    }
+    .sidebar {
+      height: 100vh;
+      width: 240px;
+      background-color: #14532d;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h5 {
+      color: #fff;
+      margin-bottom: 20px;
+      text-align: center;
+      background-color: #15803d;
+      border-radius: 6px;
+      padding: 8px 0;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 5px;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #166534;
+      color: #fff;
+    }
+    .logout {
+      color: #f87171;
+    }
+    .content {
+      margin-left: 260px;
+      padding: 40px;
+    }
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .btn-success {
+      background-color: #15803d;
+      border: none;
+    }
+    .btn-success:hover {
+      background-color: #166534;
+    }
+     .sidebar h5 {
+      text-align: center;
+      background-color: #15803d;
+      border-radius: 5%;
+    }
+    .card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  .table thead {
+    background-color: #166534;
+    color: white;
+  }
+
+  .table {
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  </style>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+
+<body>
+   <div class="sidebar">
+    <div>
+      <h5>G E C</h5>
+      <a href="{{ url_for('home') }}">🏠 Dashboard</a>
+      <a href="{{ url_for('gerenciamento') }}">📋 Gerenciamento</a>
+      <a href="{{ url_for('relatorios') }}">📊 Relatórios</a>
+      <a href="{{ url_for('movimentacao') }}" class="active">🔄 Movimentações</a>
+      {% if session.perfil == "admin" %}
+      <a href="{{ url_for('listar_forn') }}">🚚 Fornecedores</a>
+      <a href="{{ url_for('listar_usuarios') }}">👤 Usuários</a>
+      {% endif %}
+    </div>
+    <div>
+      <a href="{{ url_for('login') }}" class="logout" style="color:#f87171">⬅ Sair</a>
+    </div>
+  </div>
+
+  <!-- CONTEÚDO -->
+  <div class="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3 class="fw-bold text-success">Movimentações de Estoque</h3>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <div class="card p-4 mb-4">
+      <h5 class="fw-bold text-success mb-3">Registrar Movimentação</h5>
+      <form method="POST" class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Produto</label>
+          <select name="produto_id" class="form-select" required>
+            <option value="" disabled selected>Selecione o produto</option>
+            {% for p in produtos %}
+              <option value="{{ p[0] }}">{{ p[1] }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Tipo de Movimentação</label>
+          <select name="tipo" class="form-select" required>
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Quantidade</label>
+          <input type="number" name="quantidade" class="form-control" min="1" required>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+          <button type="submit" class="btn btn-success w-100">Registrar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- LISTA DE MOVIMENTAÇÕES -->
+    <div class="card p-4">
+      <h5 class="fw-bold text-success mb-3">Últimas Movimentações</h5>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+          <thead>
+            <tr class="text-center">
+              <th>ID</th>
+              <th>Produto</th>
+              <th>Tipo</th>
+              <th>Quantidade</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if movimentos %}
+              {% for m in movimentos %}
+              <tr>
+                <td class="text-center">{{ m[0] }}</td>
+                <td>{{ m[4] }}</td>
+                <td class="text-center">
+                  {% if m[1] == 'entrada' %}
+                    <span class="badge bg-success">Entrada</span>
+                  {% else %}
+                    <span class="badge bg-danger">Saída</span>
+                  {% endif %}
+                </td>
+                <td class="text-center">{{ m[2] }}</td>
+                <td class="text-center">{{ m[3] }}</td>
+              </tr>
+              {% endfor %}
+            {% else %}
+              <tr>
+                <td colspan="5" class="text-center text-muted">Nenhuma movimentação registrada.</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Fornecedor - StockCore</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f9fafb;
+      font-family: "Inter", sans-serif;
+    }
+
+    .sidebar {
+      height: 100vh;
+      width: 240px;
+      background-color: #14532d;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h5 {
+      color: #fff;
+      margin-bottom: 20px;
+      text-align: center;
+      background-color: #15803d;
+      border-radius: 6px;
+      padding: 8px 0;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 5px;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background-color: #166534;
+      color: #fff;
+    }
+
+    .logout {
+      color: #f87171;
+    }
+
+    .content {
+      margin-left: 260px;
+      padding: 40px;
+    }
+
+    .card {
+      border: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    .btn-success {
+      background-color: #15803d;
+      border: none;
+    }
+
+    .btn-success:hover {
+      background-color: #166534;
+    }
+     .sidebar h5 {
+      text-align: center;
+      background-color: #15803d;
+      border-radius: 5%;
+    }
+  </style>
+</head>
+<body>
+
+ <div class="sidebar">
+    <div>
+      <h5>G E C</h5>
+      <a href="{{ url_for('home') }}">🏠 Dashboard</a>
+      <a href="{{ url_for('gerenciamento') }}">📋 Gerenciamento</a>
+      <a href="{{ url_for('relatorios') }}">📊 Relatórios</a>
+      <a href="{{ url_for('movimentacao') }}">🔄 Movimentações</a>
+      {% if session.perfil == "admin" %}
+      <a href="{{ url_for('listar_forn') }}" class="active">🚚 Fornecedores</a>
+      <a href="{{ url_for('listar_usuarios') }}">👤 Usuários</a>
+      {% endif %}
+    </div>
+    <div>
+      <a href="{{ url_for('login') }}" class="logout" style="color:#f87171">⬅ Sair</a>
+    </div>
+  </div>
+
+
+  <!-- Conteúdo -->
+  <div class="content" style="padding-top: 9%;">
+    <div class="card p-4" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);">
+      <h3 class="fw-bold text-success mb-4">Editar Fornecedor</h3>
+
+      <form method="POST" action="{{ url_for('editar_fornecedor', id=fornecedor[0]) }}">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Nome do Fornecedor</label>
+            <input type="text" name="nome" class="form-control" value="{{ fornecedor[1] }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">CNPJ / CPF</label>
+            <input type="text" name="cnpj_cpf" class="form-control" value="{{ fornecedor[2] }}" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Telefone</label>
+            <input type="text" name="telefone" class="form-control" value="{{ fornecedor[3] }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">E-mail</label>
+            <input type="email" name="email" class="form-control" value="{{ fornecedor[4] }}">
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <a href="{{ url_for('listar_forn') }}" class="btn btn-outline-secondary">Cancelar</a>
+          <button type="submit" class="btn btn-success px-4">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
