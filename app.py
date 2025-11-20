@@ -329,6 +329,7 @@ def editar_produto(id):
 def inativar_produto(id):
     conn = conectar()
     cur = conn.cursor()
+    
     cur.execute("Update produtos Set ativo = 0 Where id = ?", (id,))
     conn.commit()
     conn.close()

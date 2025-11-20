@@ -62,7 +62,7 @@ cur.execute('''
     CREATE TABLE IF NOT EXISTS movimentacoes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     produto_id INTEGER,
-    tipoS TEXT,
+    tipo TEXT,
     quantidade INTEGER,
     data TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )''')
