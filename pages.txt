@@ -13,7 +13,7 @@ Função: visão geral.
 Resumo de produtos em estoque
 Alertas de baixo estoque
 Últimas movimentações
-Botões de atalho (pequena navbar)
+Produtos em excesso
 
 3. Produtos
 
@@ -32,7 +32,7 @@ Botões: Entrada, Saída
 Campo de busca por produto
 Total atual de cada item
 
-5. Fornecedores - Arthur
+5. Fornecedores
 
 Função: cadastro e consulta de fornecedores.
 
@@ -40,18 +40,11 @@ Formulário de cadastro
 Lista de fornecedores ativos/inativos
 Filtro por nome/CNPJ
 
-6. Auditoria
-
-Função: rastrear todas ações.
-
-Lista de ações
-Filtro por usuário ou tipo de ação
-
-7. Relatórios - Arthur 
+6. Relatórios 
 
 Função: consultas e análises.
 
 Quantidade total em estoque
 Valor total em mercadorias
 Produtos mais movimentados
-Opção de exportar CSV
+Opção de exportar CSV e PDF
