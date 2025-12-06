@@ -219,11 +219,13 @@ def home():
 @app.route("/gerenciamento")
 @login_required
 def gerenciamento():
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
     nome = request.args.get("nome", "").capitalize()
-    categoria = request.args.get("categoria", "").capitalize()\
+    categoria = request.args.get("categoria", "").capitalize()
 
     query = """
     Select p.id, p.nome, p.codigo, p.categoria, p.preco, p.data_validade, 
@@ -252,6 +254,8 @@ def gerenciamento():
 @app.route("/cadastrar_produto", methods=["POST", "GET"])
 @admin_required
 def novo_produto():
+    atualizar_produtos()
+    
     conn = conectar()
     cur = conn.cursor()
 
@@ -290,6 +294,8 @@ def novo_produto():
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 @admin_required
 def editar_produto(id):
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
@@ -340,6 +346,8 @@ def inativar_produto(id):
 @app.route("/movimentacoes", methods=["GET", "POST"])
 @login_required
 def movimentacao():
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
@@ -402,6 +410,8 @@ def movimentacao():
 @app.route("/fornecedores", methods=["GET"])
 @admin_required
 def listar_forn():
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
@@ -431,6 +441,8 @@ def listar_forn():
 @app.route("/fornecedores/novo", methods=["GET", "POST"])
 @admin_required
 def cadastrar_fornecedor():
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
@@ -469,6 +481,8 @@ def inativar_fornecedor(id):
 @app.route('/fornecedores/editar/<int:id>', methods=["GET", "POST"])
 @admin_required
 def editar_fornecedor(id):
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
@@ -493,6 +507,8 @@ def editar_fornecedor(id):
 @app.route("/usuarios")
 @admin_required
 def listar_usuarios():
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
@@ -506,6 +522,8 @@ def listar_usuarios():
 @app.route("/usuarios/novo", methods=["GET", "POST"])
 @admin_required
 def cadastrar_usuario():
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
@@ -551,6 +569,8 @@ def inativar_usuario(id):
 @app.route("/usuarios/editar/<int:id>", methods=["GET", "POST"])
 @admin_required
 def editar_usuario(id):
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
@@ -574,6 +594,8 @@ def editar_usuario(id):
 @app.route("/relatorios", methods=["GET", "POST"])
 @login_required
 def relatorios():
+    atualizar_produtos()
+
     conn = conectar()
     cur = conn.cursor()
 
