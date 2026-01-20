@@ -98,7 +98,6 @@ def criar_admin():
 
     return render_template("inicio/admin.html")
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     conn = conectar()
@@ -215,7 +214,6 @@ def home():
         mais_vendidos=mais_vendidos
     )
 
-
 @app.route("/gerenciamento")
 @login_required
 def gerenciamento():
@@ -249,7 +247,6 @@ def gerenciamento():
 
 
     return render_template("gerencia/produtos.html", nome=nome, categoria=categoria, produtos=produtos)
-
 
 @app.route("/cadastrar_produto", methods=["POST", "GET"])
 @admin_required
@@ -290,7 +287,6 @@ def novo_produto():
     
     return render_template("gerencia/cadastrar.html", fornecedores=fornecedores)
 
-
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
 @admin_required
 def editar_produto(id):
@@ -329,7 +325,6 @@ def editar_produto(id):
 
     return render_template("gerencia/editar.html", produto=produto, estoque=estoque, fornecedores=fornecedores)
 
-
 @app.route("/inativar/<int:id>")
 @admin_required
 def inativar_produto(id):
@@ -341,7 +336,6 @@ def inativar_produto(id):
     conn.close()
     
     return redirect(url_for("gerenciamento"))
-
 
 @app.route("/movimentacoes", methods=["GET", "POST"])
 @login_required
@@ -437,7 +431,6 @@ def listar_forn():
 
     return render_template("forn/listar_forn.html", fornecedores=fornecedores, nome=nome, cnpj_cpf=cnpj_cpf)
 
-
 @app.route("/fornecedores/novo", methods=["GET", "POST"])
 @admin_required
 def cadastrar_fornecedor():
@@ -464,7 +457,6 @@ def cadastrar_fornecedor():
     
     return render_template("forn/cadastrar_forn.html")
 
-
 @app.route("/fornecedores/inativar/<int:id>")
 @admin_required
 def inativar_fornecedor(id):
@@ -476,7 +468,6 @@ def inativar_fornecedor(id):
     conn.close()
 
     return redirect(url_for("listar_forn"))
-
 
 @app.route('/fornecedores/editar/<int:id>', methods=["GET", "POST"])
 @admin_required
@@ -517,7 +508,6 @@ def listar_usuarios():
     conn.close()
 
     return render_template("usuarios/listar.html", usuarios=usuarios)
-
 
 @app.route("/usuarios/novo", methods=["GET", "POST"])
 @admin_required
